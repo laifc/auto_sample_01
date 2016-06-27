@@ -17,7 +17,7 @@ class Mail_Case(unittest.TestCase):
 	#脚本初始化
 	@classmethod
 	def setUpClass(cls):
-		print "setUpClass"
+		#print "setUpClass"
 		# cls.driver = webdriver.Firefox()
 		# cls.driver.implicitly_wait(30)
 		cls.filepath = "dataEngine\\Book1.xls"
@@ -27,17 +27,19 @@ class Mail_Case(unittest.TestCase):
 		"""
 		测试Demo
 		"""
-		print "action"
+		#print "action"
 		exeKeyword = actionKeyword.Actionkeywords()
 		base = BasePage.Action()
+		'''
 		case_id = txt[1]
 		geturl = txt[4]
 		username = txt[5]
 		password = txt[6]
+		'''
 		# casedata = base.getTabledata(self.filepath, "Test Cases")
 		k =5
 		stepdata = base.getTabledata(self.filepath, "Test Steps")
-		print type(stepdata),"stepdata"
+		#print type(stepdata),"stepdata"
 		for j in stepdata:
 			if txt[0] == j[0]:
 				#print j[2]
@@ -48,15 +50,16 @@ class Mail_Case(unittest.TestCase):
 					exeKeyword.openBrowser()
 				elif j[3] == "input":
 					#print
-					print j[2]  #输入
+					print j[2]+":"+txt[k]  #输入
 					#j[4]  代表元素编号
 					loc = base.locate(j[4])	#返回值内容为：("id","inputid")、("xpath","/html/body/header/div[1]/nav")格式
-					print  loc  #[u'id', u'password1']
+					#print  loc  #[u'id', u'password1']
 					exeKeyword.input_Text(loc, txt[k])   #k=4  第一次是账号，第二次是密码  username = txt[4]
 					k += 1
 				elif j[3] == "submit":
 					print j[2]
 					loc = base.locate(j[4])
+					base.saveScreenshot(base.driver, "submit03")
 					exeKeyword.Submit(loc)  #"""提交表单"""  会先截图
 				elif j[3] == "verifyLogin": #登录校验
 					print j[2]
@@ -69,9 +72,9 @@ class Mail_Case(unittest.TestCase):
 					time.sleep(5)
 					exeKeyword.closeBrowser()
 				elif j[3] == "geturl":
-					print j[2]
-					url = txt[4]
-					exeKeyword.navigate(url)
+					print j[2]+":"+txt[4]
+					#url = txt[4]
+					exeKeyword.navigate(txt[4])
 				elif j[3] == "clickelement":
 					print j[2]
 					loc = base.locate(j[4])
@@ -83,11 +86,14 @@ class Mail_Case(unittest.TestCase):
 					#print
 
 				elif j[3] == "verifycode":
-					print j[2]
+					print j[2]+":1234"
 					loc = base.locate(j[4])
 					exeKeyword.verifycode(loc)
 
 					#可能还有其他功能，但是没有用到就没有拿出来判断  这个可能会存在问题，但是考虑性能的话这个是对的
+	
+
+
 
 	@staticmethod   #？什么功能
 	def getTestFunc(*txt):
@@ -106,7 +112,7 @@ class Other_Case(unittest.TestCase):
 	#脚本初始化
 	@classmethod
 	def setUpClass(cls):
-		print "setUpClass"
+		#print "setUpClass"
 		# cls.driver = webdriver.Firefox()
 		# cls.driver.implicitly_wait(30)
 		cls.filepath = "dataEngine\\Book1.xls"
@@ -116,7 +122,7 @@ class Other_Case(unittest.TestCase):
 		"""
 		测试Demo
 		"""
-		print "action"
+		#print "action"
 		exeKeyword = actionKeyword.Actionkeywords()
 		base = BasePage.Action()
 		case_id = txt[1]
@@ -125,22 +131,23 @@ class Other_Case(unittest.TestCase):
 		# casedata = base.getTabledata(self.filepath, "Test Cases")
 		k =5
 		stepdata = base.getTabledata(self.filepath, "Test Steps")
-		print type(stepdata),"stepdata"
+		#print type(stepdata),"stepdata"
 		for j in stepdata:
 			if txt[0] == j[0]:
-				if j[3] == "openBrowser":
+				if j[3] == "openBrowser": 
 					print j[2]  #步骤说明
 					exeKeyword.openBrowser()
-				elif j[3] == "input":
-					print j[2]  #输入
+				elif j[3] == "input": #文本框输入
+					print j[2]+":"+txt[k]  #
 					#j[4]  代表元素编号
 					loc = base.locate(j[4])	#返回值内容为：("id","inputid")、("xpath","/html/body/header/div[1]/nav")格式
-					print  loc  #[u'id', u'password1']
+					#print  loc  #[u'id', u'password1']
 					exeKeyword.input_Text(loc, txt[k])   #k=4  第一次是账号，第二次是密码  username = txt[4]
 					k += 1
-				elif j[3] == "submit":
+				elif j[3] == "submit": #"""提交表单"""
 					print j[2]
 					loc = base.locate(j[4])
+					#base.saveScreenshot(self.driver, "submit01") #能不能这么用？
 					exeKeyword.Submit(loc)  #"""提交表单"""  会先截图
 				elif j[3] == "verifyLogin": #登录校验
 					print j[2]
@@ -150,25 +157,25 @@ class Other_Case(unittest.TestCase):
 					#def verifyLogin(self, span_loc, userid_loc):
 				elif j[3] == "closeBrowser":
 					print j[2]
-					time.sleep(5)
+					time.sleep(5)					
 					exeKeyword.closeBrowser()
-				elif j[3] == "geturl":
-					print j[2]
-					url = txt[4]
-					exeKeyword.navigate(url)
-				elif j[3] == "clickelement":
+				elif j[3] == "geturl":  #请求链接
+					print j[2]+":"+txt[4]
+					#url = txt[4]
+					exeKeyword.navigate(txt[4])
+				elif j[3] == "clickelement": #点击元素
 					print j[2]
 					loc = base.locate(j[4])
 					exeKeyword.clickElement_i(0, loc)  #为什么index要设2？被我修改成0 暂时写死只能选定元素的第一个
-				elif j[3] == "switchframe":
+				elif j[3] == "switchframe":  #切换iframe
 					print j[2]
 					loc = base.locate(j[4])
 					exeKeyword.switchframe(loc)
 
-				elif j[3]	==	"veritycode":
-					print j[2]
+				elif j[3]	==	"verifycode": #输入验证码1234
+					print j[2]+":1234"
 					loc = base.locate(j[4])
-					exeKeyword.veritycode(loc)
+					exeKeyword.verifycode(loc)
 				'''
 				elif j[3] == "clear":
 					print j[2]
@@ -177,7 +184,7 @@ class Other_Case(unittest.TestCase):
 				'''
 
 
-					#print
+					
 
 					#可能还有其他功能，但是没有用到就没有拿出来判断  这个可能会存在问题，但是考虑性能的话这个是对的
 
@@ -195,17 +202,17 @@ class Other_Case(unittest.TestCase):
 
 
 def __generateTestCases():
-	print "__generateTestCases"
+	#print "__generateTestCases"
 	login_page = BasePage.Action()
 	mailcasedata = login_page.getTabledata("dataEngine\\Book1.xls", "Mail Cases")
-	print mailcasedata
+	#print mailcasedata
 	for i in mailcasedata:
 		TCid = i[0]
 		if i[3] == "Y":
 			print "【Run】"+i[1]+"："
 			print " + -"*8
 			table = login_page.getTabledata("dataEngine\\Book1.xls", "case data")
-			print "case data",table
+			#print "case data",table
 			for txt in table:
 				if (txt[2] == "Y") & (txt[0] == TCid):
 					#print txt,"txt"
@@ -216,14 +223,14 @@ def __generateTestCases():
 	print maillist
 	
 	othercasedata = login_page.getTabledata("dataEngine\\Book1.xls", "Other Cases")
-	print othercasedata
+	#print othercasedata
 	for i in othercasedata:
 		TCid = i[0]
 		if i[3] == "Y":
 			print "【Run】"+i[1]+"："
 			print " + -"*8
 			table = login_page.getTabledata("dataEngine\\Book1.xls", "case data")
-			print "case data",table
+			#print "case data",table
 			for txt in table:
 				if (txt[2] == "Y") & (txt[0] == TCid):
 					#print txt,"txt"
@@ -248,9 +255,9 @@ if __name__ == '__main__':
 	for i in otherlist:
 		testunit.addTest(Other_Case(i))	
 	
-	tt = time.strftime("%Y%m%d %H.%M.%S",time.localtime(time.time()))
+	tt = time.strftime("%Y-%m-%d %H.%M.%S",time.localtime(time.time()))
 	#定义自动化报告目录
-	filename='C:\\JC_AutoReport '+tt+'.html'
+	filename='e:\\JC_AutoReport '+tt+'.html'
 	fp=file(filename,'wb')
 	runner=HTMLTestRunner.HTMLTestRunner(
 	stream=fp,

@@ -193,3 +193,15 @@ class Action:
 		#print os.getcwd()
 		image = driver.save_screenshot(self.savePngName(name))
 		return image
+	
+	#关闭弹窗   特别是登录成功或失败后，截图是有弹窗就无法截图成功，需要先关闭弹窗
+	def closealert(self):
+		try:
+			alert =self.driver.switch_to_alert()
+			alert_text = alert.text
+			alertTF=True				
+		except:
+			alertTF=False
+		if alertTF:						
+			alert.accept()	
+			return alert_text
