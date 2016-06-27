@@ -32,7 +32,9 @@ class Actionkeywords(BasePage.Action):
 		
 	def closeBrowser(self):
 		"""关闭浏览器"""
-		self.closealert()
+		closealert_txt=self.closealert()
+		if  closealert_txt[0]:			
+			print u"登陆后弹窗提示 ："+closealert_txt[1]
 		self.saveScreenshot(self.driver, "submit02")  #截图
 		self.driver.quit()
 

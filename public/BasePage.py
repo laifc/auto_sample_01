@@ -42,8 +42,8 @@ class Action:
 		#使用get打开访问链接地址
 		self.driver.get(url)
 		self.driver.maximize_window()
-		#使用assert进行校验，打开的链接地址是否与配置的地址一致。调用on_page()方法
-		assert self.on_page(pagetitle), u"打开开页面失败 %s" % url
+		#使用assert进行校验，打开的链接地址是否与配置的地址一致。调用on_page()方法    我的测试不需要这个验证
+		#assert self.on_page(pagetitle), u"打开开页面失败 %s" % url
 
 	#重写元素定位方法
 	def find_element(self, *loc):
@@ -140,7 +140,9 @@ class Action:
 		table = self.setTable(sheetname=sheetname)
 		celldata = table.cell_value(RowNum, ColNum)
 		return celldata
-
+	
+	
+	'''我要取消掉element表格  需要大修改 
 	#读取元素标签和元素唯一标识
 	def locate(self, index, filepath="dataEngine\\Book1.xls", sheetname="element"):
 		"""
@@ -149,11 +151,15 @@ class Action:
 		index: 元素编号
 		返回值内容为：("id","inputid")、("xpath","/html/body/header/div[1]/nav")格式
 		"""
+		
 		table = self.setTable(filepath, sheetname)
 		for i in range(1, table.nrows):
 			if index in table.row_values(i):
 				return table.row_values(i)[1:3]
-
+	'''
+		
+		
+		
 	#savePngName:生成图片的名称
 	def savePngName(self, name):
 		"""
@@ -204,4 +210,4 @@ class Action:
 			alertTF=False
 		if alertTF:						
 			alert.accept()	
-			return alert_text
+			return alertTF,alert_text

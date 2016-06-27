@@ -52,13 +52,15 @@ class Mail_Case(unittest.TestCase):
 					#print
 					print j[2]+":"+txt[k]  #输入
 					#j[4]  代表元素编号
-					loc = base.locate(j[4])	#返回值内容为：("id","inputid")、("xpath","/html/body/header/div[1]/nav")格式
-					#print  loc  #[u'id', u'password1']
+					#loc = base.locate(j[4])	#返回值内容为：("id","inputid")、("xpath","/html/body/header/div[1]/nav")格式  进行改造  					
+					loc =[j[4],j[5]]
+					print  loc  #[u'id', u'password1']
 					exeKeyword.input_Text(loc, txt[k])   #k=4  第一次是账号，第二次是密码  username = txt[4]
 					k += 1
 				elif j[3] == "submit":
 					print j[2]
-					loc = base.locate(j[4])
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]
 					base.saveScreenshot(base.driver, "submit03")
 					exeKeyword.Submit(loc)  #"""提交表单"""  会先截图
 				elif j[3] == "verifyLogin": #登录校验
@@ -77,17 +79,20 @@ class Mail_Case(unittest.TestCase):
 					exeKeyword.navigate(txt[4])
 				elif j[3] == "clickelement":
 					print j[2]
-					loc = base.locate(j[4])
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]
 					exeKeyword.clickElement_i(0, loc)  #为什么index要设2？被我修改成0
 				elif j[3] == "switchframe":
 					print j[2]
-					loc = base.locate(j[4])
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]
 					exeKeyword.switchframe(loc)
 					#print
 
 				elif j[3] == "verifycode":
 					print j[2]+":1234"
-					loc = base.locate(j[4])
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]
 					exeKeyword.verifycode(loc)
 
 					#可能还有其他功能，但是没有用到就没有拿出来判断  这个可能会存在问题，但是考虑性能的话这个是对的
@@ -140,19 +145,24 @@ class Other_Case(unittest.TestCase):
 				elif j[3] == "input": #文本框输入
 					print j[2]+":"+txt[k]  #
 					#j[4]  代表元素编号
-					loc = base.locate(j[4])	#返回值内容为：("id","inputid")、("xpath","/html/body/header/div[1]/nav")格式
-					#print  loc  #[u'id', u'password1']
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]	#返回值内容为：("id","inputid")、("xpath","/html/body/header/div[1]/nav")格式
+					print  loc  #[u'id', u'password1']
 					exeKeyword.input_Text(loc, txt[k])   #k=4  第一次是账号，第二次是密码  username = txt[4]
 					k += 1
 				elif j[3] == "submit": #"""提交表单"""
 					print j[2]
-					loc = base.locate(j[4])
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]
 					#base.saveScreenshot(self.driver, "submit01") #能不能这么用？
 					exeKeyword.Submit(loc)  #"""提交表单"""  会先截图
 				elif j[3] == "verifyLogin": #登录校验
 					print j[2]
-					loc_1 = base.locate(j[4])
-					loc_2 = base.locate(j[5])
+					#loc_1 = base.locate(j[4])
+					#loc_2 = base.locate(j[5])
+					#loc = base.locate(j[4])
+					loc_1 =[j[5],j[6]]
+					loc_2 =[j[7],j[8]]					
 					exeKeyword.verifyLogin(loc_1, loc_2)
 					#def verifyLogin(self, span_loc, userid_loc):
 				elif j[3] == "closeBrowser":
@@ -165,16 +175,19 @@ class Other_Case(unittest.TestCase):
 					exeKeyword.navigate(txt[4])
 				elif j[3] == "clickelement": #点击元素
 					print j[2]
-					loc = base.locate(j[4])
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]
 					exeKeyword.clickElement_i(0, loc)  #为什么index要设2？被我修改成0 暂时写死只能选定元素的第一个
 				elif j[3] == "switchframe":  #切换iframe
 					print j[2]
-					loc = base.locate(j[4])
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]
 					exeKeyword.switchframe(loc)
 
 				elif j[3]	==	"verifycode": #输入验证码1234
 					print j[2]+":1234"
-					loc = base.locate(j[4])
+					#loc = base.locate(j[4])
+					loc =[j[4],j[5]]
 					exeKeyword.verifycode(loc)
 				'''
 				elif j[3] == "clear":
